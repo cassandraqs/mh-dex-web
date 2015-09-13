@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+	<title>Armors</title>
+</head>
+<body>
+<script>
+	$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+	<div class="container">
+		<div class="row center-align">
+			<div class="col s2">
+				<p>Filter  <i class="mdi-content-filter-list"></i></p>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Armor Parts</option>
+					<option value="1">Head</option>
+					<option value="2">Body</option>
+					<option value="3">Glove</option>
+					<option value="4">Wrist</option>
+					<option value="5">Feet</option>
+				</select>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Rareness</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Gender</option>
+					<option value="1">Male</option>
+					<option value="2">Female</option>
+
+				</select>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Weapon type</option>
+					<option value="1">Blade</option>
+					<option value="2">Gun</option>
+
+				</select>
+			</div>
+			<div class="col s2">
+				<p>Clear Filter  <i class="mdi-content-clear"></i></p>
+			</div>
+		</div>
+	</div>
+	<div class="center-align row">
+		<p>Table of Armors and details</p>
+		<div class="vdivider col s5">table</div>
+
+		<div class="col s7">
+			<div><img src="images/armor.png"></div>
+			<div>Table of skills</div>
+			<div>Table of Item needed</div>
+
+		</div>
+	</div>
+
+</body>
+</html>

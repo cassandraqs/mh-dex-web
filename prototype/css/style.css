@@ -1,0 +1,50 @@
+#topnav {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+li.bold {
+	height: 44px;
+}
+.card-image {
+	opacity: 0.6;
+}
+.vdivider {
+
+    border-right:1px solid grey;
+}
+.map {
+	border-right:1px solid lightgrey;
+}
+
+p {
+	padding-top: 10px;
+}
+.key {
+	margin-top: 25px;
+}
+header, main, footer {
+	padding-left: 240px;
+}
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+      padding-left: 0;
+    }
+}
+.sidebar {
+	width: 240px;
+}
+footer, nav {
+	  background-image: url(skulls.png);
+}
+main {
+	background-color: #fffaf0;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }

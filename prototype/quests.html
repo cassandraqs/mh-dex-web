@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+	<title>Quests</title>
+</head>
+<body>
+<script>
+	$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+	<div class="container">
+		<div class="row center-align">
+			<div class="col s1">
+				<p>Filter  <i class="mdi-content-filter-list"></i></p>
+			</div>
+			<div class="col s2"><button class="key">Key Quests</button></div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Rank</option>
+					<option value="1">Caravan</option>
+					<option value="2">Caravan Low</option>
+					<option value="3">Caravan High</option>
+					<option value="4">G hall</option>
+					<option value="5">G hall low</option>
+				</select>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Type</option>
+					<option value="1">Gather</option>
+					<option value="2">Slaying</option>
+					<option value="3">Hunting</option>
+					<option value="4">Capture</option>
+					<option value="5">Special</option>
+					<option value="6">Training</option>
+				</select>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Location</option>
+					<option value="1">H Mount</option>
+					<option value="2">S crag</option>
+
+				</select>
+			</div>
+			<div class="input-field col s2">
+				<select>
+					<option value="" disabled selected>Monsters</option>
+					<option value="1">Seltas</option>
+					<option value="2">lodrome</option>
+
+				</select>
+			</div>
+			<div class="col s1">
+				<p>Clear<i class="mdi-content-clear"></i></p>
+			</div>
+		</div>
+	</div>
+	<div class="center-align row">
+		<p>Table of Quests and details</p>
+		<div class="vdivider col s5">table of quests</div>
+
+		<div class="col s7">
+			<div>Table of details:</div>
+			<div>Table of Main rewardsA</div>
+			<div>Table of main rewardsB</div>
+			<div>Table of sub rewards</div>
+
+		</div>
+	</div>
+
+</body>
+</html>

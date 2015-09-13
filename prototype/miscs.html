@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+	<title>Miscs</title>
+</head>
+<body>
+	<script>
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+		$(document).ready(function(){
+			$('.scrollspy').scrollSpy();
+		});
+	</script>
+	<div class="container">
+		<div class="row">
+			<ul class="tabs">
+				<li class="tab col s2"><a class="active" href="#palicos">Palicos</a></li>
+				<li class="tab col s2"><a href="#combo">Item Combo</a></li>
+				<li class="tab col s2"><a href="#amulets">Amulets</a></li>
+				<li class="tab col s2"><a href="#veggie">Veggie elder</a></li>
+				<li class="tab col s2"><a href="#wyporium">Wyporium</a></li>
+				<li class="tab col s2"><a href="#awards">Awards</a></li>
+			</ul>
+		</div>
+		<div id="palicos">
+			<div class="row">
+				<div class="col s3">
+					<p>Filter  <i class="mdi-content-filter-list"></i></p>
+				</div>
+				<div id="weapon" class="input-field col s3">
+					<select>
+						<option value="" disabled selected>Weapon Type</option>
+						<option value="1">Hammer</option>
+						<option value="2">Cut</option>
+					</select>
+				</div>
+				<div id="armor" class="input-field col s3">
+					<select>
+						<option value="" disabled selected>Armor Type</option>
+						<option value="1">Head</option>
+						<option value="2">Body</option>
+					</select>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col l10">
+					<div id="weapons" class="row">
+						<div class="col s8">
+							<table>Palico Weapon</table>
+						</div>
+						<div class="col s4">
+							<table>Production</table>
+						</div>
+					</div>
+					<div id="armors" class="row">
+						<div class="col s8">
+							<table>Palico Armor</table>
+						</div>
+						<div class="col s4">
+							<table>Production</table>
+						</div>
+					</div>
+					<div id="quests" class="row">
+						<div class="col s8">
+							<table>Meownster hunter</table>
+						</div>
+						<div class="col s4">
+							<table>Quest awards</table>
+						</div>
+					</div>
+				</div>
+				<div class="col hide-on-small-only m3 l2">
+					<ul class="section table-of-contents">
+						<li><a href="#weapons">Weapons</a></li>
+						<li><a href="#armors">Armors</a></li>
+						<li><a href="#quests">Quests</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="combo">
+			<table>table of combo</table>
+		</div>
+		<div id="amulets" class="row">
+			<div class="col l9">
+				<table>table of amulets</table>
+			</div>
+			<div class="col l3">
+				<table>table of production</table>
+			</div>
+		</div>
+		<div id="veggie">
+			<table>table of veggie elder</table>
+		</div>
+		<div id="wyporium">
+			<table>table of wyporium</table>
+		</div>
+		<div id="awards" class="row">
+			<p>make each award a button with click effects??</p>
+			<div class="col l1">
+				<div class="card">
+					<div class="card-image waves-effect waves-block waves-light">
+						<img class="activator" src="images/awards.jpeg">
+					</div>
+					<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">Falcon</i></span>
+						<p>Completed all 5 star caravan quests.</p>
+					</div>
+				</div>
+			</div>
+
+		</body>
+		</html>

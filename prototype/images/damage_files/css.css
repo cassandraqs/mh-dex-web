@@ -1,0 +1,159 @@
+﻿@import url(http://zt.tgbus.com/include/global.css);
+.clear10{
+clear:both;
+height:10px;
+}
+.clear30{
+clear:both;
+height:30px;
+}
+.clear{
+clear:both;
+}
+.clear-pattern{
+height:10px;
+width:968px;
+background:url(../images/mh4G_15.jpg) no-repeat center top;
+}
+#top-links{
+width: 324px;
+margin: 0 auto;
+line-height:18px
+}
+
+#Tab1{
+width: 640px;
+margin:0 auto;
+}
+#Tab2{
+width: 640px;
+margin:0 auto;
+}
+/* 切换选项卡 */
+.Menubox{
+width: 640px;
+height:20px;
+overflow:hidden;
+line-height:10px;
+}
+.Menubox a{
+display:block;
+border:1px solid #00a7d1;
+float:left;
+padding:5px;
+margin-right: 6px;
+color:#fff;
+}
+.Menubox a:hover{
+background:#002d47;
+color:#fff;
+}
+/* 切换内容 */
+.Contentbox{
+width:628px;
+height:195px;
+background:#002d47;
+border:1px solid #00a7d1;
+}
+.Contentbox li{
+float:left;
+line-height:20px
+}
+/* 切换内容左侧 */
+.box-ul-1{
+width:220px;
+height:160px;
+float:left;
+padding:15px;
+}
+/* 切换内容左侧按钮 */
+.box-ul-1 .box-li-ul-1{
+width:220px;
+clear:both;
+}
+.box-ul-1 span{
+display:block;
+position:relative;
+top:-62px;
+width:194px;
+line-height:16px;
+height:46px;
+color:#fff;
+background:#00598c;
+padding:8px;
+overflow:hidden;
+opacity:0.8;
+}
+
+.Contentbox .box-li-1{
+float:left;
+text-align:center;
+}
+.Contentbox .box-li-2{
+float:right;
+text-align:center;
+}
+/* 切换内容右侧 */
+.box-ul-2{
+width:330px;
+float:left;
+padding:15px;
+
+}
+.box-ul-2 h2{
+font-size:12px;
+font-weight:bold;
+line-height:20px;
+}
+.box-ul-2 h2 a{
+color:#ffd800;
+}
+.box-ul-2 li a{
+color:#fff;
+}
+.box-ul-2 li a:hover{
+color:#00baff;
+}
+.box-ul-2 .new{
+width:330px;
+float:left;
+clear:both;
+line-height: 18px;
+height: 18px;
+overflow:hidden;
+}
+.box-ul-2 .new .d{
+float:right;
+color:#fff;
+}
+.box-ul-2 .new .t{
+width:270px;
+}
+
+.gl-links{
+background:#002d47;
+margin:18px 0;
+padding:5px 15px;
+line-height:20px;
+width:600px;
+border:1px solid #00a7d1;
+  white-space: nowrap;
+}
+.gl-links p{border-bottom:1px solid #666;color:#fff;width:580px;overflow:hidden;}
+.gl-links a{color:#fff;}
+.gl-links a:hover{color:#00baff;}
+.gl-links span{
+color:#ffd800;
+font-weight:bold;
+width: 60px;
+display: block;
+float: left;
+}
+
+#footer{
+background:#000 url(../images/footer.jpg) no-repeat bottom;
+height:277px;
+text-align: center;
+color: #999999;
+}
+#footer a{color:#999999;}
