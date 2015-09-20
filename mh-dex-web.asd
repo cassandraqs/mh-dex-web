@@ -17,6 +17,9 @@
                  (:module "lisp" 
                           :depends-on ("assets" "templates")
                           :components
-                          ((:file "app"))))
+                          ((:file "packages")
+                           (:file "imported-widgets" :depends-on ("packages"))
+                           (:file "about-page" :depends-on ("packages" "imported-widgets"))
+                           (:file "app" 
+                                  :depends-on ("packages" "imported-widgets" "about-page")))))
     :description "Web application of Ping's Monster Hunter Dex.")
-                          

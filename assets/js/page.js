@@ -15,7 +15,6 @@ var Page = React.createClass({
                                 (this.props.isActive ? " is-active" : "")}
                      style={pageSectionStyle}>
               <div className="mdl-cell mdl-cell--12-col">
-                <button>{this.props.link}</button>
                 {this.props.children}
               </div>
             </section>

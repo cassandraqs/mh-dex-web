@@ -1,28 +1,4 @@
-(in-package :cl-user)
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (unless (find-package :mh-dex-web)
-    (defpackage mh-dex-web
-      (:use :cl :parenscript)
-      (:import-from :realispic
-                    :def-app
-                    :def-widget
-                    :def-service
-                    :import-widget
-                    :with-rpc
-                    :rpc-result
-                    :rpc-error
-                    :*template-path*)
-      (:import-from :realispic.candy
-                    :trace)
-      (:export :dex))))
 (in-package :mh-dex-web)
-
-
-(import-widget app-header :original-name "Header")
-(import-widget app-drawer :original-name "Drawer")
-(import-widget app-navigation :original-name "Navigation")
-(import-widget app-footer :original-name "Footer")
-(import-widget app-page :original-name "Page")
 
 (def-widget main-app-view ()
   (labels ((component-did-mount ()
@@ -39,11 +15,13 @@
                               (style :display "flex"))
                              (:app-navigation ())
                              (:main ((style :display "inline-block"
-                                            :padding-bottom "20px"))
+                                            :padding-bottom "20px"
+                                            :flex-grow 1))
+                                    (:about-page ((is-active true)))
                                     (:app-page ((link "monster-page")
                                                 (is-active false)))
                                     (:app-page ((link "weapon-page")
-                                                (is-active true)))
+                                                (is-active false)))
                                     (:app-page ((link "armor-page")
                                                 (is-active false))))))
                  (:app-footer ())))))
