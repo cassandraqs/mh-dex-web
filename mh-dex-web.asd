@@ -10,7 +10,8 @@
     :depends-on (:realispic)
     :components ((:module "assets" :components
                           ((:module "js" :components
-                                    ((:static-file "environment.js")))))
+                                    ((:static-file "environment.js")
+                                     (:static-file "page.js")))))
                  (:module "templates" :components
                           ((:static-file "template.html")))
                  (:module "lisp" 

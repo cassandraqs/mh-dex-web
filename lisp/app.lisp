@@ -22,13 +22,7 @@
 (import-widget app-drawer :original-name "Drawer")
 (import-widget app-navigation :original-name "Navigation")
 (import-widget app-footer :original-name "Footer")
-
-(def-widget app-page ((link :attribute)
-                      (is-active :attribute))
-  (:section ((class "mdl-layout__tab-panel" 
-                    (if is-active "is-active" ""))
-             (id link))
-            (:div () link)))
+(import-widget app-page :original-name "Page")
 
 (def-widget main-app-view ()
   (labels ((component-did-mount ()
@@ -47,9 +41,9 @@
                              (:main ((style :display "inline-block"
                                             :padding-bottom "20px"))
                                     (:app-page ((link "monster-page")
-                                                (is-active true)))
-                                    (:app-page ((link "weapon-page")
                                                 (is-active false)))
+                                    (:app-page ((link "weapon-page")
+                                                (is-active true)))
                                     (:app-page ((link "armor-page")
                                                 (is-active false))))))
                  (:app-footer ())))))
@@ -62,7 +56,8 @@
     :icon "assets/images/favico.png"
     :port 5120
     :system :mh-dex-web
-    :includes ("assets/js/environment.js")
+    :includes ("assets/js/environment.js"
+               "assets/js/page.js")
     :static-root (merge-pathnames "assets/"
                                   (asdf:system-source-directory :mh-dex-web))
     :widget (:main-app-view ())))
