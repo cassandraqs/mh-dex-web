@@ -2,9 +2,14 @@
 
 var Header = React.createClass({
     render: function() {
+        var headerRowStyle = {
+            backgroundImage: "url('assets/images/backgrounds/skulls.png')"
+        };
+        
         return (
-            <header className="mdl-layout__header">
-              <div className="mdl-layout__header-row">
+            <header className="mdl-layout__header mdl-layout__header--transparent">
+              <div className="mdl-layout__header-row"
+                   style={headerRowStyle}>
                 <span className="mdl-layout-title">{"Ping's Monster Hunter Dex"}</span>
               </div>
             </header>
