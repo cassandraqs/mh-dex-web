@@ -14,6 +14,7 @@
                     :rpc-error
                     :*template-path*)
       (:import-from :realispic.candy
-                    :trace)
+                    :trace
+                    :map)
       (:export :dex))))
 

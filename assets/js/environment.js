@@ -49,7 +49,11 @@ var NavigationItem = React.createClass({
               <div className="app-nav-icon" 
                    style={iconStyle}>
               </div>
-              <span>{this.props.caption}</span>
+              <span className={"app-nav-link-text" + 
+                               (this.props.activePage === this.props.page ?
+                                " is-active" : "")}>
+                {this.props.caption}
+              </span>
             </a>
         );
     }
@@ -60,22 +64,31 @@ var Navigation = React.createClass({
         return (
             <aside className="app-nav mdl-shadow--4dp">
               <NavigationItem caption="Monster" icon="monster" page="monster-page" 
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Weapon" icon="lance" page="weapon-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Armor" icon="armor" page="armor-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Map" icon="map" page="map-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Quest" icon="quest" page="quest-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Item" icon="item" page="item-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Searcher" icon="question" page="searcher-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="Misc" icon="misc" page="misc-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
               <NavigationItem caption="About" icon="dragon" page="about-page"
+                              activePage={this.props.activePage}
                               callback={this.props.switchPageCallback}/>
             </aside>
         );

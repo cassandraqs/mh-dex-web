@@ -39,6 +39,11 @@ html>body {
     width: 32px;
 }
 
+.app-nav .app-nav-link .app-nav-link-text.is-active {
+    color: #fafafa;
+    font-weight: 600;
+}
+
 .app-nav a {
     text-decoration: none;
 }

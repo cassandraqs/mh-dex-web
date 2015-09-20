@@ -5,12 +5,13 @@
                  :padding-bottom "20px"
                  :flex-grow 1))
          (:about-page ((active-page active-page)))
-         (:app-page ((name "monster-page")
-                     (active-page active-page)))
-         (:app-page ((name "weapon-page")
-                     (active-page active-page)))
-         (:app-page ((name "armor-page")
-                     (active-page active-page)))))
+         (map (lambda (x)
+                (:app-page ((name x) 
+                            (key (+ "page:" x))
+                            (active-page active-page) )))
+              (array "monster-page" "weapon-page" "armor-page"
+                     "map-page" "quest-page" "item-page" "searcher-page"
+                     "misc-page"))))
 
 (def-widget main-app-view ((active-page :state "about-page") )
   (labels ((component-did-mount ()
@@ -35,7 +36,8 @@
                        (:div ((class "nav-and-content"
                                      "mdl-cell" "mdl-cell--12-col")
                               (style :display "flex"))
-                             (:app-navigation ((switch-page-callback (@ this switch-active-page))))
+                             (:app-navigation ((switch-page-callback (@ this switch-active-page))
+                                               (active-page (:state active-page))))
                              (:page-group ((active-page (:state active-page))))))
                  (:app-footer ())))))
 
