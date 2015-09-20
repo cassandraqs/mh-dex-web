@@ -13,9 +13,6 @@
                                  (weapon :attribute))
   (:div ((class "mdl-card mdl-shadow--2dp"))
         (:div ((class "mdl-card__title"))
-              ;; (:i ((class "material-icons")
-              ;;      (style :margin-left 10))
-              ;;     "assignment_ind")
               (:img ((src (+ "assets/images/weapons/" 
                              weapon
                              ".png"))
@@ -26,9 +23,9 @@
         (:div ((class "mdl-card__supporting-text"))
               (@ this props children))))
 
-(def-widget about-page ((is-active :attribute))
-  (:app-page ((link "about-page")
-              (is-active is-active))
+(def-widget about-page ((active-page :attribute))
+  (:app-page ((name "about-page")
+              (active-page active-page))
              (:about-page-title () "Development Team")
              (:section ((class "mdl-grid"))
                        (:div ((class "mdl-cell mdl-cell--3-col"))
@@ -37,15 +34,17 @@
                                                    "Ping is a seasoned monster hunter player. "
                                                    "His favorite weapon is a charge blade."))
                        (:div ((class "mdl-cell mdl-cell--3-col"))
-                             (:developer-info-card ((developer-name "Breakds")
+                             (:developer-info-card ((developer-name "BreakDS")
                                                     (weapon "lance"))
                                                    "Break is the lancer and the backend developer."))
                        (:div ((class "mdl-cell mdl-cell--3-col"))
                              (:developer-info-card ((developer-name "Cassandra Qi")
                                                     (weapon "switch_axe"))
                                                    "Cassandra is the frontend developer and "
-                                                   "the axe weild.")))
-             (:hr ())
+                                                   "the axe weilder.")))
+             (:section ((class "mdl-grid"))
+                       (:div ((class "mdl-cell mdl-cell--9-col"))
+                             (:hr ())))
              (:about-page-title () "Copyrights")
              (:section ((class "mdl-grid"))
                        (:div ((class "mdl-cell mdl-cell--6-col"))

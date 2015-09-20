@@ -1,10 +1,32 @@
 (in-package :mh-dex-web)
 
-(def-widget main-app-view ()
+(def-widget page-group ((active-page :attribute))
+  (:main ((style :display "inline-block"
+                 :padding-bottom "20px"
+                 :flex-grow 1))
+         (:about-page ((active-page active-page)))
+         (:app-page ((name "monster-page")
+                     (active-page active-page)))
+         (:app-page ((name "weapon-page")
+                     (active-page active-page)))
+         (:app-page ((name "armor-page")
+                     (active-page active-page)))))
+
+(def-widget main-app-view ((active-page :state "about-page") )
   (labels ((component-did-mount ()
-             (funcall (@ component-handler upgrade-element)
-                      (funcall (@ *react find-d-o-m-node) this))
+             (funcall (@ component-handler upgrade-dom))
+             nil)
+
+           (component-did-update ()
+             (funcall (@ component-handler upgrade-dom))
+             nil)
+
+           ;; Callback to switch the active page.
+           (switch-active-page (page)
+             (trace page)
+             (update-state active-page page)
              nil))
+    
     (:div ((class "mdl-layout" "mdl-js-layout" "has-drawer" "mdl-layout--fixed-header"))
           (:app-header ())
           (:app-drawer ())
@@ -13,17 +35,8 @@
                        (:div ((class "nav-and-content"
                                      "mdl-cell" "mdl-cell--12-col")
                               (style :display "flex"))
-                             (:app-navigation ())
-                             (:main ((style :display "inline-block"
-                                            :padding-bottom "20px"
-                                            :flex-grow 1))
-                                    (:about-page ((is-active true)))
-                                    (:app-page ((link "monster-page")
-                                                (is-active false)))
-                                    (:app-page ((link "weapon-page")
-                                                (is-active false)))
-                                    (:app-page ((link "armor-page")
-                                                (is-active false))))))
+                             (:app-navigation ((switch-page-callback (@ this switch-active-page))))
+                             (:page-group ((active-page (:state active-page))))))
                  (:app-footer ())))))
 
 (let ((*template-path* 
@@ -39,16 +52,3 @@
     :static-root (merge-pathnames "assets/"
                                   (asdf:system-source-directory :mh-dex-web))
     :widget (:main-app-view ())))
-
-                      
-
-  
-  
-
-
-
-               
-        
-      
-      
-    

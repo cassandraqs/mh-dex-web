@@ -34,6 +34,9 @@ var Drawer = React.createClass({
 // -------------------- Navigation --------------------
 
 var NavigationItem = React.createClass({
+    switchPage: function() {
+        this.props.callback(this.props.page);
+    },
     render: function() {
         var iconStyle = {
             backgroundImage: "url('assets/images/navigations/" + 
@@ -41,7 +44,8 @@ var NavigationItem = React.createClass({
         };
         
         return (
-            <a href={this.props.page} className="app-nav-link">
+            <a href={"#" + this.props.page} className="app-nav-link"
+               onClick={this.switchPage}>
               <div className="app-nav-icon" 
                    style={iconStyle}>
               </div>
@@ -55,15 +59,24 @@ var Navigation = React.createClass({
     render: function() {
         return (
             <aside className="app-nav mdl-shadow--4dp">
-              <NavigationItem caption="Monster" icon="monster" page="#monster-page"/>
-              <NavigationItem caption="Weapon" icon="lance" page="#weapon-page"/>
-              <NavigationItem caption="Armor" icon="armor" page="#armor-page"/>
-              <NavigationItem caption="Map" icon="map" page="#map-page"/>
-              <NavigationItem caption="Quest" icon="quest" page="#quest-page"/>
-              <NavigationItem caption="Item" icon="item" page="#item-page"/>
-              <NavigationItem caption="Searcher" icon="question" page="#searcher-page"/>
-              <NavigationItem caption="Misc" icon="misc" page="#misc-page"/>
-              <NavigationItem caption="About" icon="dragon" page="#about-page"/>
+              <NavigationItem caption="Monster" icon="monster" page="monster-page" 
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Weapon" icon="lance" page="weapon-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Armor" icon="armor" page="armor-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Map" icon="map" page="map-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Quest" icon="quest" page="quest-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Item" icon="item" page="item-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Searcher" icon="question" page="searcher-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="Misc" icon="misc" page="misc-page"
+                              callback={this.props.switchPageCallback}/>
+              <NavigationItem caption="About" icon="dragon" page="about-page"
+                              callback={this.props.switchPageCallback}/>
             </aside>
         );
     }
