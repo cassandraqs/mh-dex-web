@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="<!-- TMPL_VAR icon -->" rel="shortcut icon" type="image/x-icon"/>
+    
+    <title><!-- TMPL_VAR title --></title>
+    
+    <!-- ------------------------ Style Libraries -------------------------- -->
+
+    <!-- TMPL_LOOP css-include -->
+    <link href="<!-- TMPL_VAR url -->" rel="stylesheet">
+    <!-- /TMPL_LOOP -->
+    
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    
+    <link href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.grey-blue.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    <!-- -------------------- JavaScript Libraries -------------------- -->
+
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+
+    <!-- TMPL_LOOP external-js -->
+    <script src="<!--TMPL_VAR url -->"></script>
+    <!-- /TMPL_LOOP -->
+
+
+
+    <!-- -------------------- Internal Libraries -------------------- -->
+
+    <!-- TMPL_LOOP js-include -->
+    <script type="text/jsx" src="<!--TMPL_VAR url -->"></script>
+    <!-- /TMPL_LOOP -->
+
+    <link href="assets/css/layout.css" rel="stylesheet">
+
+    <style type="text/css"><!-- TMPL_VAR inline-css --></style>
+  </head>
+
+  
+  <body>
+    <div class="mdl-layout__container" id="content"></div>
+            
+        <!--     <main style="display: inline-block; padding-bottom: 20px"> -->
+        <!--       <section class="mdl-layout__tab-panel" id="scroll-tab-1"> -->
+        <!--         <div class="page-content">1</div> -->
+        <!--       </section> -->
+        <!--       <section class="mdl-layout__tab-panel" id="scroll-tab-2"> -->
+        <!--         <div class="page-content">two</div> -->
+        <!--       </section> -->
+        <!--       <section class="mdl-layout__tab-panel" id="scroll-tab-3"> -->
+        <!--         <div class="page-content">3</div> -->
+        <!--       </section> -->
+        <!--       <section class="mdl-layout__tab-panel is-active" id="scroll-tab-4"> -->
+        <!--         <div class="page-content"> -->
+        <!--           <\!-- <img src="avengers.jpg" width="80%"></img> -\-> -->
+        <!--           <\!-- <img src="avengers.jpg" width="80%"></img> -\-> -->
+        <!--           <\!-- <img src="avengers.jpg" width="80%"></img> -\-> -->
+        <!--           <\!-- <img src="avengers.jpg" width="80%"></img> -\-> -->
+        <!--         </div> -->
+        <!--       </section> -->
+        <!--       <section class="mdl-layout__tab-panel" id="scroll-tab-5"> -->
+        <!--         <div class="page-content">five</div> -->
+        <!--       </section> -->
+        <!--       <section class="mdl-layout__tab-panel" id="scroll-tab-6"> -->
+        <!--         <div class="page-content">six</div> -->
+        <!--       </section> -->
+        <!--     </main> -->
+        <!--   </div> -->
+        <!-- </div> -->
+        <!-- <footer class="mdl-mini-footer mdl-color--grey-900"> -->
+        <!--   <ul> -->
+        <!--     <li class="mdl-mini-footer--social-btn"> -->
+        <!--       <a href ="https://github.com/breakds" class="social-btn social-btn__github" role="button" -->
+        <!--          title="GitHub"></a> -->
+        <!--     </li> -->
+        <!--     </ul> -->
+        <!-- </footer> -->
+
+    <!-- -------------------- Compiled Javascript -------------------- -->
+
+    <script type="text/jsx" src="<!--TMPL_VAR js -->"></script>
+
+  </body>
+</html>
+

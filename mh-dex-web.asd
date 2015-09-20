@@ -8,7 +8,14 @@
     :author "BreakDS <breakds@gmail.com>, Cassandra Qi <cassandraqs@gmail.com>"
     :license "MIT"
     :depends-on (:realispic)
-    :components ((:module "lisp" :components
+    :components ((:module "assets" :components
+                          ((:module "js" :components
+                                    ((:static-file "environment.js")))))
+                 (:module "templates" :components
+                          ((:static-file "template.html")))
+                 (:module "lisp" 
+                          :depends-on ("assets" "templates")
+                          :components
                           ((:file "app"))))
     :description "Web application of Ping's Monster Hunter Dex.")
                           
