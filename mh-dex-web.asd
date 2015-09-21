@@ -20,6 +20,8 @@
                           ((:file "packages")
                            (:file "imported-widgets" :depends-on ("packages"))
                            (:file "about-page" :depends-on ("packages" "imported-widgets"))
+                           (:file "weapon-page" :depends-on ("packages" "imported-widgets"))
                            (:file "app" 
-                                  :depends-on ("packages" "imported-widgets" "about-page")))))
+                                  :depends-on ("packages" "imported-widgets" "about-page"
+                                                          "weapon-page")))))
     :description "Web application of Ping's Monster Hunter Dex.")

@@ -5,11 +5,12 @@
                  :padding-bottom "20px"
                  :flex-grow 1))
          (:about-page ((active-page active-page)))
+         (:weapon-page ((active-page active-page)))
          (map (lambda (x)
                 (:app-page ((name x) 
                             (key (+ "page:" x))
                             (active-page active-page) )))
-              (array "monster-page" "weapon-page" "armor-page"
+              (array "monster-page" "armor-page"
                      "map-page" "quest-page" "item-page" "searcher-page"
                      "misc-page"))))
 
