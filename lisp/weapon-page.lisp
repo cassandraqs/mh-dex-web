@@ -196,7 +196,6 @@
                                "list"
                                "tree")))
            (handle-special-change (special-id)
-             (trace special-id)
              (when (!= (:state selected-special) special-id)
                
                (defvar new-visibles 
