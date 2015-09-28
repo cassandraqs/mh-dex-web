@@ -14,7 +14,7 @@
                      "map-page" "quest-page" "item-page" "searcher-page"
                      "misc-page"))))
 
-(def-widget main-app-view ((active-page :state "about-page") )
+(def-widget main-app-view ((active-page :state "weapon-page") )
   (labels ((component-did-mount ()
              (funcall (@ component-handler upgrade-dom))
              nil)
@@ -50,7 +50,8 @@
     :icon "assets/images/favico.png"
     :port 5120
     :system :mh-dex-web
-    :includes ("assets/js/environment.js"
+    :includes ("assets/js/constants.js"
+               "assets/js/environment.js"
                "assets/js/page.js")
     :static-root (merge-pathnames "assets/"
                                   (asdf:system-source-directory :mh-dex-web))
