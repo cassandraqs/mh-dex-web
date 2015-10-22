@@ -187,17 +187,3 @@
        for sub-id from 0
        do (setf (slot-value weapon 'sub-id) sub-id))
     result))
-
-
-
-  
-
-
-      
-
-
-
-
-
-  
-  

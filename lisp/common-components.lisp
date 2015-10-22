@@ -12,9 +12,6 @@
 (def-widget dropdown-menu ((for :attribute))
   (labels ((component-did-mount ()
              (funcall (@ (funcall (@ *react find-d-o-m-node)
-                                  ;; There is a bug since we should
-                                  ;; not have to use (@ this props
-                                  ;; for).
                                   (@ this refs the-ul))
                          set-attribute)
                       "for" for)))
@@ -22,6 +19,25 @@
           (class "mdl-menu" "mdl-menu--bottom-left"
                  "mdl-js-menu" "mdl-js-ripple-effect"))
          (@ this props children))))
+
+(def-widget expandable-search-bar ((name :attribute))
+  (labels ((component-did-mount ()
+             (funcall (@ (funcall (@ *react find-d-o-m-node)
+                                  (@ this refs the-button))
+                         set-attribute)
+                      "for" name)))
+    (:form ((action "#")
+            (style :display "inline-block"))
+           (:div ((class "mdl-textfield" "mdl-js-textfield" "mdl-textfield--expandable"))
+                 (:label ((ref "theButton")
+                          (class "mdl-button" "mdl-js-button" "mdl-button--icon"))
+                         (:i ((class "material-icons")) "search"))
+                 (:div ((class "mdl-textfield__expandable-holder"))
+                       (:input ((class "mdl-textfield__input")
+                                (type "text")
+                                (id name)))
+                       (:label ((class "mdl-textfield__label"))
+                               "Expandable Input"))))))
 
 (def-widget select-menu ((name :attribute)
                          (caption :attribute))

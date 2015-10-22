@@ -190,7 +190,9 @@
                          (weapon-list :state (array))
                          (selected-special :state 0)
                          (visibles :state (array)))
-  (labels ((switch-view-type ()
+  (labels ((switch-to-tree-view ()
+             (update-state view-type "tree"))
+           (switch-view-type ()
              (update-state view-type
                            (if (= (:state view-type) "tree") 
                                "list"
@@ -219,15 +221,22 @@
                                             :type 1)
                (if rpc-error
                    (trace rpc-error)
-                   (update-state weapon-list rpc-result
-                                 visibles (funcall (@ *aux* range)
-                                                   0 (@ rpc-result length)))))
+                   (progn 
+                     (update-state weapon-list rpc-result
+                                   visibles (funcall (@ *aux* range)
+                                                     0 (@ rpc-result length)))
+                     (trace rpc-result))))
              nil))
     (:app-page ((name "weapon-page")
                 (active-page active-page))
                (:div ((class "mdl-grid"))
                      (:div ((class "mdl-cell" "mdl-cell--9-col"))
                            (:table ()
+                                   (:tr () 
+                                        (:td ((col-span 2))
+                                             (:label ((style :margin-right 10))
+                                                     "Search Armors")
+                                             (:expandable-search-bar ((name "weapon-search-bar")))))
                                    (:tr ()
                                         (:weapon-control-panel ((view-type (:state view-type))
                                                                 (on-view-type-change (@ this switch-view-type))))
