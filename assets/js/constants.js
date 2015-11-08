@@ -38,7 +38,7 @@ WEAPON_SPECIAL_ATTACKS = [
 
 AUX = {
     range: function(start, end) {
-        var result = []
+        var result = [];
         for (var i = start; i < end; ++i) {
             result.push(i);
         }

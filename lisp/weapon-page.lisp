@@ -5,16 +5,32 @@
   (get-weapon-entries :en (parse-integer type)))
 
 (def-widget weapon-row ((columns :attribute)
+                        (view-type :attribute)
+                        (expanded :attribute)
+                        (expand-callback :attribute)
                         (weapon-data :attribute))
-  (labels ((should-component-update () false)
+  (labels ((should-component-update (next-props next-state) 
+             (or (!= (@ next-props view-type) view-type)
+                 (!= (@ next-props expanded) expanded)))
            (name-cell ()
              (:td ((class "mdl-data-table__cell--non-numeric"))
-                  (:a ((href "#"))
-                      (:i ((class "material-icons")
-                           (style :font-size 20
-                                  :padding-bottom 2
-                                  :vertical-align "middle"))
-                          "keyboard_arrow_right"))
+                  (when (= view-type "tree")
+                    (:a ((href "#")
+                         (on-click (=> () 
+                                       (when (> (@ weapon-data offsprings) 0)
+                                         (funcall expand-callback 
+                                                  (@ weapon-data sub-id)
+                                                  expanded)))))
+                        (:i ((class "material-icons")
+                             (style :font-size 20
+                                    :padding-bottom 2
+                                    :margin-left (* 25 (@ weapon-data depth))
+                                    :vertical-align "middle"))
+                            (if (= (@ weapon-data offsprings) 0)
+                                "stars"
+                                (if expanded 
+                                    "remove_circle" 
+                                    "add_box")))))
                   (:a ((href "#")
                        (style :text-decoration "none"
                               :padding-left 10)
@@ -88,10 +104,13 @@
 
 (def-widget weapon-table ((weapon-type :attribute)
                           (weapon-list :attribute)
+                          (view-type :attribute)
+                          (expand-callback :attribute)
                           (visibles :attribute))
   (labels ((should-component-update (next-props next-state)
              (or (!= (@ next-props weapon-type) weapon-type)
                  (!= (@ next-props visibles) visibles)
+                 (!= (@ next-props view-type) view-type)
                  (!= (@ next-props weapon-list) weapon-list)))
            (get-columns ()
              (case weapon-type
@@ -100,10 +119,14 @@
     (:table ((class "mdl-data-table" "mdl-js-data-table" "mdl-shadow--2dp"))
             (:weapon-table-header ((columns (funcall (@ this get-columns)))))
             (:tbody ()
-                    (map (lambda (sub-id)
-                           (defvar weapon-data (aref weapon-list sub-id))
+                    (map (lambda (visible)
+                           (defvar weapon-data (aref weapon-list 
+                                                     (@ visible sub-id)))
                            (:weapon-row ((key (@ weapon-data id))
+                                         (expanded (@ visible expanded))
+                                         (view-type view-type)
                                          (columns (funcall (@ this get-columns)))
+                                         (expand-callback expand-callback)
                                          (weapon-data weapon-data))))
                          visibles)))))
 
@@ -146,7 +169,7 @@
                      (style :color (if (= view-type "list")
                                        "#00BCD4"
                                        "#C5C5C5")))
-                    "format_align_justify"))))
+                    "view_list"))))
 
 (def-widget weapon-list-panel ((selected-special :attribute)
                                (on-special-filter :attribute))
@@ -190,29 +213,75 @@
                          (weapon-list :state (array))
                          (selected-special :state 0)
                          (visibles :state (array)))
-  (labels ((switch-to-tree-view ()
-             (update-state view-type "tree"))
-           (switch-view-type ()
-             (update-state view-type
-                           (if (= (:state view-type) "tree") 
-                               "list"
-                               "tree")))
+  (labels ((switch-view-type ()
+             (let ((new-view-type (if (= (:state view-type) "tree") 
+                                      "list"
+                                      "tree")))
+               (if (= new-view-type "tree")
+                   (progn (defvar new-visibles (array))
+                          (funcall (@ (:state weapon-list) for-each)
+                                   (lambda (weapon-data index)
+                                     (when (= (@ weapon-data depth) 0)
+                                       (funcall (@ new-visibles push) 
+                                                (create sub-id index
+                                                        expanded false)))))
+                          (update-state view-type new-view-type
+                                        visibles new-visibles))
+                   (update-state view-type new-view-type
+                                 visibles (map (lambda (weapon-data index)
+                                                 (create sub-id index
+                                                         expanded false))
+                                               (:state weapon-list))))))
+           (handle-expand (sub-id already-expanded)
+             ;; Expand the children of the weapon specified by
+             ;; sub-id. If already expanded, collapse it instead.
+             (defvar depth (@ (aref (:state weapon-list) sub-id) depth))
+             (defvar max-offspring-sub-id 
+               (+ (@ (aref (:state weapon-list) sub-id) offsprings)
+                  sub-id))
+             (if already-expanded
+                 (progn (defvar new-visibles 
+                          (funcall (@ (:state visibles) filter)
+                                   (lambda (visible)
+                                     (or (<= (@ visible sub-id) sub-id)
+                                         (> (@ visible sub-id) max-offspring-sub-id)))))
+                        (funcall (@ new-visibles for-each)
+                                 (lambda (visible index)
+                                   (when (= (@ visible sub-id) sub-id)
+                                     (setf (@ visible expanded) false))))
+                        (update-state visibles new-visibles))
+                 (progn (defvar new-visibles (array))
+                        (funcall (@ (:state visibles) for-each)
+                                 (=> (visible index)
+                                     (if (or (< (@ visible sub-id) sub-id)
+                                             (> (@ visible sub-id) max-offspring-sub-id))
+                                         (funcall (@ new-visibles push) visible)
+                                         (progn
+                                           (funcall (@ new-visibles push) 
+                                                    (create sub-id sub-id
+                                                            expanded true))
+                                           (loop for i from (1+ sub-id)
+                                              to max-offspring-sub-id
+                                              do (when (= (@ (aref (:state weapon-list) i) depth)
+                                                          (1+ depth))
+                                                   (funcall (@ new-visibles push) 
+                                                            (create sub-id i
+                                                                    expanded false))))))))
+                        (update-state visibles new-visibles))))
            (handle-special-change (special-id)
              (when (!= (:state selected-special) special-id)
-               
-               (defvar new-visibles 
-                 (@ (funcall (@ *aux* range)
-                             0 (@ (:state weapon-list) length))))
-               (when (> special-id 0)
-                 (setf new-visibles 
-                       (funcall (@ new-visibles filter)
-                                (lambda! (index)
-                                         (defvar weapon (aref (:state weapon-list) index))
-                                         (defvar specials (@ weapon special))
-                                         (or (and (> (@ specials length) 0)
-                                                  (= (@ (aref specials 0) type-id) special-id))
-                                             (and (> (@ specials length) 1)
-                                                  (= (@ (aref specials 1) type-id) special-id)))))))
+               (defvar new-visibles (array))
+               (funcall (@ (:state weapon-list) for-each)
+                        (lambda (weapon-data index)
+                          (defvar specials (@ weapon-data special))
+                          (when (or (= special-id 0)
+                                    (and (> (@ specials length) 0)
+                                         (= (@ (aref specials 0) type-id) special-id))
+                                    (and (> (@ specials length) 1)
+                                         (= (@ (aref specials 1) type-id) special-id)))
+                            (funcall (@ new-visibles push)
+                                     (create sub-id index
+                                             expanded false)))))
                (update-state selected-special special-id
                              visibles new-visibles)))
            (component-will-mount ()
@@ -221,11 +290,12 @@
                                             :type 1)
                (if rpc-error
                    (trace rpc-error)
-                   (progn 
-                     (update-state weapon-list rpc-result
-                                   visibles (funcall (@ *aux* range)
-                                                     0 (@ rpc-result length)))
-                     (trace rpc-result))))
+                   (update-state weapon-list rpc-result
+                                 visibles (map (lambda (weapon-data index)
+                                                 (create sub-id index
+                                                         expanded false))
+                                               rpc-result)))
+               (trace (aref rpc-result 0)))
              nil))
     (:app-page ((name "weapon-page")
                 (active-page active-page))
@@ -250,6 +320,8 @@
                                         (:td ((col-span 2))
                                              (:weapon-table ((weapon-type (:state weapon-type))
                                                              (visibles (:state visibles))
+                                                             (view-type (:state view-type))
+                                                             (expand-callback (@ this handle-expand))
                                                              (weapon-list (:state weapon-list))))))))))))
 
 

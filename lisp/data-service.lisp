@@ -61,6 +61,8 @@
    (affinity :type (signed-byte 32) :initarg :affinity)
    (parent :type (unsigned-byte 32) :initarg :parent)
    (children :type 'list :initarg :children)
+   (depth :type (unsigned-byte 32) :initarg :depth)
+   (offsprings :type (unsigned-byte 32) :initarg :offsprings)
    (sharpness :type 'list :initarg :sharpness)
    (special :type 'list :initarg :special)))
 
@@ -75,7 +77,9 @@
    (slots :type (unsigned-byte 8) :initarg :slots)
    (rare :type (unsigned-byte 32) :initarg :rare)
    (sharpness :type 'list :initarg :sharpness)
-   (special :type 'list :initarg :special)))
+   (special :type 'list :initarg :special)
+   (depth :type (unsigned-byte 32) :initarg :depth)
+   (offsprings :type (unsigned-byte 32) :initarg :offsprings)))
 
 (defmethod %to-json ((object weapon-entry-output))
   (with-object
@@ -89,6 +93,8 @@
     (write-key-value "affinity" (slot-value object 'affinity))
     (write-key-value "sharpness" (slot-value object 'sharpness))
     (write-key-value "special" (slot-value object 'special))
+    (write-key-value "depth" (slot-value object 'depth))
+    (write-key-value "offsprings" (slot-value object 'offsprings))
     (write-key-value "defense" (slot-value object 'defense))))
 
 (defparameter *weapon-list* nil)
@@ -127,7 +133,7 @@
                      (:from "DB_Wpn")
                      (:inner-join "ID_Wpn_Name" "DB_Wpn.Wpn_ID = ID_Wpn_Name.Wpn_ID")
                      (:order-by "DB_Wpn.Wpn_ID")))
-           (current-stack nil)
+           (stack nil)
            (contents
             (cons (make-instance 'weapon)
                   (loop for (id type-id child rare attack slot affinity defense sharp
@@ -135,23 +141,43 @@
                                 special-id-2 special-points-2 special-awaken
                                 name-en name-chs name-jp)
                      in result
-                     collect (make-instance 'weapon 
-                                            :id id
-                                            :name (list :en name-en
-                                                        :chs name-chs
-                                                        :jp name-jp)
-                                            :type type-id
-                                            :defense defense
-                                            :slots slot
-                                            :affinity (round (* affinity 100))
-                                            :rare rare
-                                            :special (convert-special special-id-1 
-                                                                      special-points-1
-                                                                      special-id-2
-                                                                      special-points-2
-                                                                      special-awaken)
-                                            :sharpness (convert-sharpness sharp)
-                                            :damage attack)))))
+                     for internal-id from 0
+                     collect (let ((new-weapon
+                                    (make-instance 'weapon 
+                                                   :id id
+                                                   :name (list :en name-en
+                                                               :chs name-chs
+                                                               :jp name-jp)
+                                                   :type type-id
+                                                   :defense defense
+                                                   :slots slot
+                                                   :affinity (round (* affinity 100))
+                                                   :rare rare
+                                                   :special (convert-special special-id-1 
+                                                                             special-points-1
+                                                                             special-id-2
+                                                                             special-points-2
+                                                                             special-awaken)
+                                                   :sharpness (convert-sharpness sharp)
+                                                   :children nil
+                                                   :depth (length stack)
+                                                   :offsprings 0
+                                                   :damage attack)))
+                               ;; Stack operations that handles children
+                               (when stack
+                                 (let ((top (car stack)))
+                                   (decf (car top))
+                                   (incf (slot-value (cdr top) 'offsprings))
+                                   (push internal-id (slot-value (cdr top) 'children))))
+                               (if (> child 0)
+                                   (push (cons child new-weapon) stack)
+                                   (loop while (and stack (zerop (caar stack)))
+                                      do 
+                                        (when (cdr stack)
+                                          (incf (slot-value (cdadr stack) 'offsprings)
+                                                (slot-value (cdar stack) 'offsprings)))
+                                        (pop stack)))
+                               new-weapon)))))
       (setf *weapon-list* (make-array (length contents)
                                       :initial-contents contents)))))
 
@@ -171,6 +197,8 @@
                  :defense (slot-value object 'defense)
                  :sharpness (slot-value object 'sharpness)
                  :special (slot-value object 'special)
+                 :depth (slot-value object 'depth)
+                 :offsprings (slot-value object 'offsprings)
                  :damage (slot-value object 'damage)))
 
 (defun get-weapon-entries (language &optional weapon-type)
@@ -182,8 +210,10 @@
                                  (= (slot-value weapon 'type)
                                     weapon-type)))
                    collect (convert-to-weapon-entry-output weapon language))))
-    (loop 
+    ;; Sets sub-ids
+    (loop
        for weapon in result
        for sub-id from 0
-       do (setf (slot-value weapon 'sub-id) sub-id))
+       do 
+         (setf (slot-value weapon 'sub-id) sub-id))
     result))

@@ -27,6 +27,7 @@
                     :*template-path*)
       (:import-from :realispic.candy
                     :lambda!
+                    :=>
                     :trace
                     :map)
       (:import-from :mh-dex-web.data-service
